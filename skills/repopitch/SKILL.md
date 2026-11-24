@@ -1,6 +1,6 @@
 ---
 name: repopitch
-description: Audits a codebase for verified product mechanics, pricing, and technical constraints, then generates a complete commercial deal package: an interactive client/investor deck, signal-based outbound emails, a 15-minute walkthrough script, and an honest objections matrix.
+description: "Audits a codebase for verified product mechanics, pricing, and technical constraints, then generates a complete commercial deal package: an interactive client/investor deck, signal-based outbound emails, a 15-minute walkthrough script, and an honest objections matrix."
 ---
 
 # RepoPitch — Full-Stack Commercial & Proposal Engine
