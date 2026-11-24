@@ -48,7 +48,7 @@ Read `references/package-spec.md` and generate:
    - **No API key is the normal free path, never an error.** Check `.env` and `.env.local` for `REPOPITCH_API_KEY`. If it is missing, do not stop, warn or ask for it: generate everything locally (`repopitch.json`, `repopitch-deck.html`, the outbound campaign and the call script) and set `{{deck_url}}` to `[attach repopitch-deck.html]` in the email and call script. Mention the hosted option once, in the Phase 4 summary only.
    - **Render Pitch step (hosted, optional):** if `REPOPITCH_API_KEY` is present in `.env` or `.env.local`, load it (never print it) and run:
      ```bash
-     curl -sS -X POST "${REPOPITCH_API_URL:-https://repopitch.vercel.app}/api/render" \
+     curl -sS -X POST "${REPOPITCH_API_URL:-https://repopitch-web.vercel.app}/api/render" \
        -H "Authorization: Bearer $REPOPITCH_API_KEY" \
        -H "Content-Type: application/json" \
        --data @repopitch.json
@@ -65,4 +65,4 @@ Read `references/package-spec.md` and generate:
 Conclude with a concise bulleted list of:
 - Unfilled placeholders (sender address, sending domain, live spot count).
 - Codebase or configuration gaps discovered during Phase 1 that need attention before promising them to a client.
-- If no `REPOPITCH_API_KEY` was set: one line saying the pitch was generated locally for free, and that adding `REPOPITCH_API_KEY=rp_live_...` to `.env.local` (keys at https://repopitch.vercel.app) gives a hosted trackable link, a live calculator and open alerts on the next run.
+- If no `REPOPITCH_API_KEY` was set: one line saying the pitch was generated locally for free, and that adding `REPOPITCH_API_KEY=rp_live_...` to `.env.local` (keys at https://repopitch-web.vercel.app) gives a hosted trackable link, a live calculator and open alerts on the next run.

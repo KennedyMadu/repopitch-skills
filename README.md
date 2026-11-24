@@ -15,7 +15,7 @@ npx skills add kennedymadu/repopitch-skills
 
 ## Hosted pitches (optional)
 
-1. Get an API key at https://repopitch.vercel.app (Starter Pack $9 for 5 pitches, or Pro $29/month).
+1. Get an API key at https://repopitch-web.vercel.app (Starter Pack $9 for 5 pitches, or Pro $29/month).
 2. Add it to your project's `.env` or `.env.local`:
 
    ```bash
