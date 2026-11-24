@@ -45,7 +45,8 @@ If not already provided by the user, ask briefly for:
 ## Phase 3: Generate the 4-Part Commercial Package
 Read `references/package-spec.md` and generate:
 1. **`repopitch.json` + Presentation (`repopitch-deck.html` or Hosted URL):**
-   - **Render Pitch step:** if `REPOPITCH_API_KEY` is present in `.env` or `.env.local`, load it (never print it) and run:
+   - **No API key is the normal free path, never an error.** Check `.env` and `.env.local` for `REPOPITCH_API_KEY`. If it is missing, do not stop, warn or ask for it: generate everything locally (`repopitch.json`, `repopitch-deck.html`, the outbound campaign and the call script) and set `{{deck_url}}` to `[attach repopitch-deck.html]` in the email and call script. Mention the hosted option once, in the Phase 4 summary only.
+   - **Render Pitch step (hosted, optional):** if `REPOPITCH_API_KEY` is present in `.env` or `.env.local`, load it (never print it) and run:
      ```bash
      curl -sS -X POST "${REPOPITCH_API_URL:-https://repopitch.vercel.app}/api/render" \
        -H "Authorization: Bearer $REPOPITCH_API_KEY" \
@@ -54,7 +55,7 @@ Read `references/package-spec.md` and generate:
      ```
      Parse the `url` field from the JSON response and use it as `{{deck_url}}` everywhere it appears in the outbound email and call script. On a non-2xx response (401 invalid key, 402 no credits, 400 invalid payload), report the `error` message and fall back to the standalone `repopitch-deck.html`; never leave `{{deck_url}}` unfilled.
    - The hosted calculator only shows the full savings comparison when `calculator.baseline_rate_pct` and `calculator.our_rate_pct` are set (plus `our_flat_fee` if there is a flat fee, default 0). Fill them from verified pricing in Phase 1; if pricing is not verified, omit all three rather than guessing.
-   - Otherwise, render a standalone, responsive `repopitch-deck.html` with print-to-PDF support and a working JavaScript ROI/fee savings calculator tailored to the prospect's numbers.
+   - Whenever there is no key (or the render call fails), render a standalone, responsive `repopitch-deck.html` with print-to-PDF support and a working JavaScript ROI/fee savings calculator tailored to the prospect's numbers.
 2. **Outbound Campaign (`founder/repopitch-[target]-outbound.md`):**
    - Variables table, 4-row Signal Bank (*Signal → Observation → Bridge*), 3 lowercase subject lines, ~150-word plain-text Email 1 linking to the RepoPitch deck, a 4-touch follow-up schedule, and local anti-spam compliance placeholders (sender identity, physical address, plain-text opt-out).
 3. **15-Minute Walkthrough & Objections Playbook (`founder/repopitch-[target]-call-script.md`):**
@@ -64,3 +65,4 @@ Read `references/package-spec.md` and generate:
 Conclude with a concise bulleted list of:
 - Unfilled placeholders (sender address, sending domain, live spot count).
 - Codebase or configuration gaps discovered during Phase 1 that need attention before promising them to a client.
+- If no `REPOPITCH_API_KEY` was set: one line saying the pitch was generated locally for free, and that adding `REPOPITCH_API_KEY=rp_live_...` to `.env.local` (keys at https://repopitch.vercel.app) gives a hosted trackable link, a live calculator and open alerts on the next run.
